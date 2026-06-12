@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 interface CardModalProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (data: AccountCardFormData) => Promise<void>;
+  onSubmit: (data: Record<string, unknown>) => Promise<void>;
   initialData?: AccountCard | null;
 }
 
