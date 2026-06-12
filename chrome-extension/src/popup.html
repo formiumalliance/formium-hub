@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formium Hub</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 300px;
+      min-height: 200px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid #1e2433;
+    }
+
+    .logo {
+      width: 28px;
+      height: 28px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .title { font-size: 13px; font-weight: 600; }
+    .subtitle { font-size: 11px; color: #64748b; margin-top: 1px; }
+
+    .content { padding: 16px; }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .status.active {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      color: #10b981;
+    }
+
+    .status.inactive {
+      background: rgba(100, 116, 139, 0.1);
+      border: 1px solid rgba(100, 116, 139, 0.2);
+      color: #64748b;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      flex-shrink: 0;
+    }
+
+    .open-btn {
+      display: block;
+      width: 100%;
+      padding: 9px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 8px;
+      color: #818cf8;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .open-btn:hover {
+      background: rgba(99, 102, 241, 0.25);
+      color: #a5b4fc;
+    }
+
+    .footer {
+      padding: 10px 16px;
+      border-top: 1px solid #1e2433;
+      font-size: 10px;
+      color: #334155;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">⚡</div>
+    <div>
+      <div class="title">Formium Hub</div>
+      <div class="subtitle">Autofill Extension</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="status" id="status">
+      <div class="dot"></div>
+      <span id="status-text">Checking status...</span>
+    </div>
+
+    <a id="open-hub" href="#" target="_blank" class="open-btn">
+      Open Formium Hub →
+    </a>
+  </div>
+
+  <div class="footer">
+    Active on pages opened from Formium Hub
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

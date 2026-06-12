@@ -1,0 +1,51 @@
+# docker-compose.yml
+# Run with: docker compose up -d
+
+version: "3.9"
+
+services:
+  # ─── PostgreSQL ────────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: formium_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: formium
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-changeme}
+      POSTGRES_DB: formium_hub
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U formium -d formium_hub"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── Formium Hub App ────────────────────────────────────────────────────────
+  app:
+    build:
+      context: .
+      args:
+        NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+        NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
+        DATABASE_URL: postgresql://formium:${DB_PASSWORD:-changeme}@postgres:5432/formium_hub
+        ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+        NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+    container_name: formium_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://formium:${DB_PASSWORD:-changeme}@postgres:5432/formium_hub
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
