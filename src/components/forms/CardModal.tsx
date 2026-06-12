@@ -66,7 +66,7 @@ export function CardModal({ open, onClose, onSubmit, initialData }: CardModalPro
     setLoading(true);
     setError(null);
     try {
-      await onSubmit(form as Record<string, unknown>);
+      await onSubmit(form as unknown as Record<string, unknown>);
       onClose();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
