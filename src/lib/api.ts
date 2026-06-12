@@ -90,7 +90,7 @@ export async function logAudit(
         action,
         resource,
         resourceId,
-        metadata,
+        metadata: metadata as object,
         ipAddress:
           req?.headers.get("x-forwarded-for")?.split(",")[0] ||
           req?.headers.get("x-real-ip") ||
